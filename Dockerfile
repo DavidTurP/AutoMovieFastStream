@@ -1,6 +1,7 @@
-FROM node:18-slim
+FROM node:20-slim
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-CMD ["npm", "start"]
+EXPOSE 8000
+CMD ["node", "index.js"]
