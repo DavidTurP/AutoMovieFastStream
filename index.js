@@ -47,4 +47,5 @@ app.get("/proxy/:id", async (req, res) => {
 });
 
 app.use("/", builder.getInterface());
+app.get("/health", (req, res) => res.send("OK"));
 app.listen(process.env.PORT || 8000);
