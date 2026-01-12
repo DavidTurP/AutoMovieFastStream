@@ -1,0 +1,14 @@
+{
+  "name": "AutoFastStream",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "stremio-addon-sdk": "latest",
+    "express": "latest",
+    "axios": "latest",
+    "cheerio": "latest"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
