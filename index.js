@@ -6,7 +6,7 @@ const manifest = {
     id: "org.faststream.es.2026",
     version: "1.0.0",
     name: "FastStream Castellano",
-    description: "Búsqueda automática en castellano para FastStream",
+    description: "Búsqueda automática en castellano",
     resources: ["stream"],
     types: ["movie", "series"],
     idPrefixes: ["tt"],
@@ -22,20 +22,20 @@ builder.defineStreamHandler((args) => {
     });
 });
 
-// IMPORTANTE: Rutas de respuesta para Koyeb
-app.get("/", (req, res) => res.send("Servidor Activo"));
+// RESPUESTAS PARA EL NAVEGADOR Y KOYEB
+app.get("/", (req, res) => res.send("<h1>Addon Activo</h1><p>Instala /manifest.json</p>"));
 app.get("/health", (req, res) => res.status(200).send("OK"));
 
-// Cargar el addon
-const addonRouter = getRouter(builder.getInterface());
-app.use("/", addonRouter);
+// CARGAR ADDON
+const addonInterface = builder.getInterface();
+app.use("/", getRouter(addonInterface));
 
 app.get("/video/:id.mp4", (req, res) => {
     res.redirect("commondatastorage.googleapis.com");
 });
 
-// Escuchar en el puerto 8000
-const port = process.env.PORT || 8000;
+// PUERTO OBLIGATORIO 8000 PARA KOYEB
+const port = 8000;
 app.listen(port, "0.0.0.0", () => {
-    console.log(`Servidor en puerto ${port}`);
+    console.log(`Servidor activo en puerto ${port}`);
 });
