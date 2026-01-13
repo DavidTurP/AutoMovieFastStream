@@ -9,6 +9,7 @@ const TMDB_API_KEY = process.env.TMDB_KEY;
 const builder = new addonBuilder({
     id: "org.faststream.es.2026",
     name: "FastStream Castellano",
+    version: "1.0.0",
     resources: ["stream"],
     types: ["movie", "series"],
     catalogs: []
