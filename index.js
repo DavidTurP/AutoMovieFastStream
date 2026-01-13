@@ -10,8 +10,10 @@ const builder = new addonBuilder({
     id: "org.faststream.es.2026",
     name: "FastStream Castellano",
     version: "1.0.0",
+    description: "Addon de búsqueda automática en FastStream",
     resources: ["stream"],
     types: ["movie", "series"],
+    idPrefixes: ["tt"],
     catalogs: []
 });
 
