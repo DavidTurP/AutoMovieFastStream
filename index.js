@@ -15,9 +15,10 @@ const manifest = {
 
 const builder = new addonBuilder(manifest);
 
+// 1. Definir el Stream
 builder.defineStreamHandler((args) => {
-    // Generamos la URL que pasará por nuestro servidor
-    const proxyUrl = `https://${process.env.KOYEB_APP_NAME}.koyeb.app/proxy/720p/${args.id}`;
+    // IMPORTANTE: Esta URL debe ser accesible desde internet
+    const proxyUrl = `https://${process.env.KOYEB_APP_NAME}.koyeb.app/video/${args.id}.mp4`;
     
     return Promise.resolve({
         streams: [{
@@ -27,16 +28,22 @@ builder.defineStreamHandler((args) => {
     });
 });
 
-// --- SOLUCIÓN AL ERROR ---
-// Usamos getRouter para obtener el middleware compatible con Express
 const addonRouter = getRouter(builder.getInterface());
 app.use("/", addonRouter);
 
-// Ruta adicional para asegurar que Koyeb siempre vea el servidor vivo
-app.get("/health", (req, res) => res.send("OK"));
+// 2. Ruta para que la web no de 404
+app.get("/", (req, res) => {
+    res.send("<h1>Addon Online</h1><p>Usa /manifest.json en Stremio</p>");
+});
 
-// Escuchar en el puerto 8000 (estándar de Koyeb)
+// 3. Ruta del video (Aquí es donde debes poner el link real de FastStream)
+app.get("/video/:id.mp4", (req, res) => {
+    // Por ahora, redirigimos a un video de prueba para verificar que Stremio funciona
+    const videoPrueba = "commondatastorage.googleapis.com";
+    res.redirect(videoPrueba);
+});
+
 const port = process.env.PORT || 8000;
 app.listen(port, "0.0.0.0", () => {
-    console.log(`Addon activo y funcionando en el puerto ${port}`);
+    console.log(`Servidor en puerto ${port}`);
 });
